@@ -10,8 +10,9 @@ const Home = () => {
   
   const getWeekNum = (date) => {
     const oneJan = new Date(date.getFullYear(), 0, 1);
-    const numberOfDays = Math.floor((date - oneJan) / (24 * 60 * 60 * 1000));
-    const weekNum = Math.ceil((date.getDay() + 1 + numberOfDays) / 7);
+    const dayNum = date.getDay();
+    date.setDate(date.getDate()+4-dayNum);
+    const weekNum = Math.ceil(((date - oneJan) / 86400000 + 1)/ 7);
     return weekNum;
   }
 
