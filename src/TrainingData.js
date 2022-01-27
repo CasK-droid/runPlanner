@@ -28,7 +28,9 @@ const TrainingData = ({ run, setRun, completed, date, week }) => {
 
     const toggleComplete = () => {
         setRun({...run, completed: !run.completed});
-        updateSummary();
+        setTimeout(function() {
+            updateSummary()
+          }, 200);
     }
 
     const deleteRun = () => {

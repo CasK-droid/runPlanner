@@ -10,10 +10,10 @@ const Stats = () => {
             <Row className="align-items-center">
                 <Col><h5>Completed:</h5>
                     <p className="p-0 m-0">Runs: {summary.completedRuns}</p>
-                    <p className="p-0 m-0">Distance: {summary.completedDistance} km</p></Col>
+                    <p className="p-0 m-0">Distance: {summary.completedDistance.toFixed(1)} km</p></Col>
                 <Col><h5>Planned:</h5>
                     <p className="p-0 m-0">Runs: {summary.unCompletedRuns}</p>
-                    <p className="p-0 m-0">Distance: {summary.uncompletedDistance} km</p></Col>
+                    <p className="p-0 m-0">Distance: {summary.uncompletedDistance.toFixed(1)} km</p></Col>
             </Row>
         </Container>
     )
