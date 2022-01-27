@@ -27,7 +27,7 @@ const AddForm = ({ setRun, initValues }) => {
             setSpeedReadOnly(true);
             setCalcField("speed");
         }
-    }, [])
+    }, [initValues])
 
     const expandSpeed = (v) => {
         let min = Math.floor(v) ? Math.floor(v) : "";
@@ -72,12 +72,10 @@ const AddForm = ({ setRun, initValues }) => {
         if (calcField === "speed" || calcField === "") {
             if (l && t) {
                 const calcSpeed = t / l;
-                initValues.speed = calcSpeed;
                 setSpeedReadOnly(true);
                 setEditSpeed(calcSpeed);
                 setCalcField("speed");
             } else if (calcField === "speed") {
-                initValues.speed = "";
                 setSpeedReadOnly(false);
                 setEditSpeed("");
                 setCalcField("");
@@ -86,12 +84,10 @@ const AddForm = ({ setRun, initValues }) => {
         if (calcField === "distance" || calcField === "") {
             if (t && v) {
                 const calcDistance = t / v;
-                initValues.distance = calcDistance.toFixed(1);
                 setDistanceReadOnly(true);
                 setEditDistance(calcDistance.toFixed(1));
                 setCalcField("distance");
             } else if (calcField === "distance") {
-                initValues.distance = "";
                 setDistanceReadOnly(false);
                 setEditDistance("");
                 setCalcField("");
@@ -100,12 +96,10 @@ const AddForm = ({ setRun, initValues }) => {
         if (calcField === "duration" || calcField === "") {
             if (l && v) {
                 const calcDuration = l * v;
-                initValues.duration = calcDuration.toFixed(0);
                 setDurationReadOnly(true);
                 setEditDuration(calcDuration.toFixed(0));
                 setCalcField("duration");
             } else if (calcField === "duration") {
-                initValues.duration = "";
                 setDurationReadOnly(false);
                 setEditDuration("");
                 setCalcField("");
@@ -114,31 +108,25 @@ const AddForm = ({ setRun, initValues }) => {
     }
 
     const updateDistance = (distance) => {
-        initValues.distance = distance;
         calculateField(Number(distance), editDuration, editSpeed);
         setEditDistance(Number(distance));
     }
 
     const updateDuration = (duration) => {
-        initValues.duration = duration;
         calculateField(editDistance, Number(duration), editSpeed);
         setEditDuration(Number(duration));
     }
 
     const updateMinute = (min) => {
-        console.log(min)
         const speed = reduceSpeed(min, editSecond);
-        initValues.speed = speed;
         setEditMinute(min);
         calculateField(editDistance, editDuration, speed);
         setEditSpeed(speed);
     }
 
     const updateSecond = (sec) => {
-        console.log(sec)
         if ((sec < 60) || !sec) {
             const speed = reduceSpeed(editMinute, sec);
-            initValues.speed = speed;
             setEditSecond(sec);
             calculateField(editDistance, editDuration, speed);
             setEditSpeed(speed);
@@ -165,14 +153,14 @@ const AddForm = ({ setRun, initValues }) => {
             )}>
                 <Form.Group className="mb-3" controlId="formDistance">
                     <Form.Label>Distance (km)</Form.Label>
-                    <Form.Control type="number" placeholder="Enter distance" readOnly={distanceReadOnly} value={initValues.distance} onChange={(e) => updateDistance(e.target.value)} isInvalid={!!errors.distance} />
+                    <Form.Control type="number" placeholder="Enter distance" readOnly={distanceReadOnly} value={editDistance ? editDistance : null} onChange={(e) => updateDistance(e.target.value)} isInvalid={!!errors.distance} />
                     <Form.Control.Feedback type="invalid">
                         {errors.distance}
                     </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formDuration">
                     <Form.Label>Training duration (min)</Form.Label>
-                    <Form.Control type="number" placeholder="Enter duration" readOnly={durationReadOnly} value={initValues.duration} onChange={(e) => updateDuration(e.target.value)} isInvalid={!!errors.duration} />
+                    <Form.Control type="number" placeholder="Enter duration" readOnly={durationReadOnly} value={editDuration ? editDuration : null} onChange={(e) => updateDuration(e.target.value)} isInvalid={!!errors.duration} />
                     <Form.Control.Feedback type="invalid">
                         {errors.duration}
                     </Form.Control.Feedback>
@@ -180,11 +168,11 @@ const AddForm = ({ setRun, initValues }) => {
                 <Form.Group className="mb-3" controlId="formSpeed">
                     <Form.Label>Run speed (min/km)</Form.Label>
                     <Row>
-                        <Col><Form.Control type="number" placeholder="min" readOnly={speedReadOnly} value={initValues.speed ? ('0'+expandSpeed(initValues.speed)[0]).slice(-2): null} isInvalid={!!errors.speed} onChange={(e) => updateMinute(parseInt(e.target.value))} />
+                        <Col><Form.Control type="number" placeholder="min" readOnly={speedReadOnly} value={editSpeed ? ('0'+expandSpeed(editSpeed)[0]).slice(-2): null} isInvalid={!!errors.speed} onChange={(e) => updateMinute(parseInt(e.target.value))} />
                             <Form.Control.Feedback type="invalid">
                                 {errors.speed}
                             </Form.Control.Feedback></Col>
-                        <Col><Form.Control type="number" placeholder="sec" readOnly={speedReadOnly} value={initValues.speed ? ('0'+expandSpeed(initValues.speed)[1]).slice(-2) : null} isInvalid={!!errors.speed} onChange={(e) => updateSecond(parseInt(e.target.value))} /></Col>
+                        <Col><Form.Control type="number" placeholder="sec" readOnly={speedReadOnly} value={editSpeed ? ('0'+expandSpeed(editSpeed)[1]).slice(-2) : null} isInvalid={!!errors.speed} onChange={(e) => updateSecond(parseInt(e.target.value))} /></Col>
                     </Row>
                 </Form.Group>
                 <Button variant="primary" type="submit" onClick={() => addRun()}>
