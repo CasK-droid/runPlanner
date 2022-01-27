@@ -28,6 +28,7 @@ const TrainingData = ({ run, setRun, completed, date, week }) => {
 
     const toggleComplete = () => {
         setRun({...run, completed: !run.completed});
+        updateSummary();
     }
 
     const deleteRun = () => {

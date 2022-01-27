@@ -1,7 +1,9 @@
 import { Form, Button, Row, Col } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import DataContext from './DataContext';
 
 const AddForm = ({ setRun, initValues }) => {
+    const { updateSummary } = useContext(DataContext);
 
     const [editDistance, setEditDistance] = useState('');
     const [editDuration, setEditDuration] = useState('');
@@ -60,6 +62,9 @@ const AddForm = ({ setRun, initValues }) => {
 
             setRun(run);
             document.body.click()
+            setTimeout(function() {
+                updateSummary()
+              }, 200);
         }
     }
 
