@@ -6,7 +6,7 @@ import DataContext from './DataContext';
 
 const Home = () => {
 
-  const { data, setData } = useContext(DataContext);
+  const { data, setData, updateSummary } = useContext(DataContext);
   
   const getWeekNum = (date) => {
     const oneJan = new Date(date.getFullYear(), 0, 1);
@@ -60,6 +60,7 @@ const Home = () => {
   const clearAll = () => {
     setData([])
     localStorage.clear();
+    updateSummary();
   }
 
   return (

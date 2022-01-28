@@ -53,6 +53,10 @@ export const DataProvider = ({ children }) => {
             localStorage.setItem("calendar", JSON.stringify(data));
         }
     }, [data])
+
+    useEffect(() => {
+        updateSummary()
+    },[])
     
     return (
         <DataContext.Provider value={({
