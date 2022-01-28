@@ -6,7 +6,7 @@ const Stats = () => {
     const { summary } = useContext(DataContext);
 
     return (
-        <Container className="p-2 border shadow-sm">
+        <Container className="p-3 border shadow-sm">
             <Row className="align-items-center">
                 <Col><h5>Completed:</h5>
                     <p className="p-0 m-0">Runs: {summary.completedRuns}</p>

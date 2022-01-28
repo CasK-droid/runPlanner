@@ -64,7 +64,7 @@ const Home = () => {
   }
 
   return (
-    <Container fluid className="p-3">
+    <Container fluid className="p-3 pt-1">
       {data.map((week) => (
         <WeekRow key={week.weekNum} week={week} currentWeek={getWeekNum(new Date())} />
       ))}
