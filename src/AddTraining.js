@@ -24,7 +24,7 @@ const AddTraining = ({ date, week, setRun }) => {
     return (
         <div>
             <OverlayTrigger trigger="click" placement="right" rootClose overlay={popover}>
-                <Button id="addTraining" className="btn p-0" variant="outline-primary"><FaPlus /></Button>
+                <Button id="addTraining" variant="outline-primary"><FaPlus /></Button>
             </OverlayTrigger>
         </div>
     )

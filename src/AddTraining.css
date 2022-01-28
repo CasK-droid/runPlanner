@@ -1,5 +1,9 @@
 #addTraining {
-    height: 1.7rem;
-    width: 1.7rem;
-    vertical-align: top;
+    height: 1.5rem;
+    width: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.1rem
 }
