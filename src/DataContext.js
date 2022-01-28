@@ -24,7 +24,7 @@ export const DataProvider = ({ children }) => {
 
     const updateSummary = () => {
         const keyNames = getKeys();
-        
+
         let completedRuns = 0;
         let uncompletedRuns = 0;
         let completedDistance = 0;
@@ -55,9 +55,34 @@ export const DataProvider = ({ children }) => {
     }, [data])
 
     useEffect(() => {
+        const updateSummary = () => {
+            const keyNames = getKeys();
+
+            let completedRuns = 0;
+            let uncompletedRuns = 0;
+            let completedDistance = 0;
+            let uncompletedDistance = 0;
+
+            for (const key of keyNames) {
+                const entry = JSON.parse(localStorage.getItem(key));
+                if (entry.completed) {
+                    completedRuns++;
+                    completedDistance += Number(entry.distance);
+                } else {
+                    uncompletedRuns++
+                    uncompletedDistance += Number(entry.distance);
+                }
+            }
+            setSummary({
+                completedRuns: completedRuns,
+                unCompletedRuns: uncompletedRuns,
+                completedDistance: completedDistance,
+                uncompletedDistance: uncompletedDistance
+            });
+        }
         updateSummary()
-    },[])
-    
+    }, [])
+
     return (
         <DataContext.Provider value={({
             data, setData,
